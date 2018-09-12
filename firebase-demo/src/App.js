@@ -1,28 +1,49 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Badge } from 'react-bootstrap';
-import logo from './logo.svg';
 import './App.css';
+import firebase from './firebase.js';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      username: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const itemsRef = firebase.database().ref('items');
+    const item = {
+      user: this.state.username
+    };
+    itemsRef.push(item);
+    this.setState({
+      username: ''
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          Hello World
-        </p>
-        <ButtonGroup>
-          <Button bsStyle="primary">Button 1</Button>
-          <Button bsStyle="info">Button 2</Button>
-          <Button bsStyle="success">Button 3</Button>
-        </ButtonGroup>
-        
-      </div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" name="username" placeholder="type your name" onChange={this.handleChange} value={this.state.username}/>
+          <button>Add your name</button>
+        </form>
+        <ul>
+
+        </ul>
+      </div>     
     );
   }
 }
 
 export default App;
+
