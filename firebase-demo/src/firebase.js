@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-
+// this our firebase config file with the data explicit to this specific database and where we connect firebase to our app.
 const config = {
   apiKey: 'AIzaSyC1p8mITlJBI2Ufn0Tb9kTbM-8M9wW9FRs',
   authDomain: 'fir-demo-be77a.firebaseapp.com',

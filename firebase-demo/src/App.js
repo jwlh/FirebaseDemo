@@ -18,11 +18,20 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // here we connect with out firebase to retrieve our data
+    // firebase offers us an easy way to not only get the data from the db but also 
+    // to update it when ever new values get added using the value custom event listener
+    // this fires on two occassions 
+    // 1. any time a new item is added or removed or changed within the votes area of our db
+    // 2. the first time the event listener is attached
+    // No.2 is especially usefull for initially grabbing a list of all the items inside our db, hence why it is in componentDidMount
     const votesRef = firebase.database().ref('votes');
     votesRef.on('value', (snapshot) => {
+      // the snapshot callback here provides us with an overview of of the votesRef and we can then use .val() to grab a list of all the properties
       const votes = snapshot.val();
       this.setState({
         votes: {
+          //then we assign each of the values in the db to our local state to use everywhere in our app
           burgers: votes.burgers.numberOfVotes,
           pizza: votes.pizza.numberOfVotes,
           ramen: votes.ramen.numberOfVotes
@@ -42,11 +51,12 @@ class App extends Component {
     } else {
       newTotal = this.state.votes.ramen + 1;
     }
-
+    // here we use .child() with the same name as the item we are voting for and .set() to replace the number of votes with our new total
     votesRef.child(voteFor).set({ numberOfVotes: newTotal });
   }
 
   handleReset() {
+    // in this case we are simply using .set() to reset the whole votes section of the db so that each item now has 0 votes.
     const votesRef = firebase.database().ref('votes');
     votesRef.set({
       burgers: {

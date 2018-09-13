@@ -1,5 +1,6 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  // we want to set these to true for development so we don't have to worry about authentication requirements on our app while we build
   "rules": {
     ".read": true,
     ".write": true
