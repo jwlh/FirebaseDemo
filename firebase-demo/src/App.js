@@ -65,26 +65,24 @@ class App extends Component {
 
     return (
       <div className="App">
-        <PieChart 
-          slices={[
-            {
-              color: '#f00',
-              value: this.state.votes.burgers
-            },
-            {
-              color: '#0f0',
-              value: this.state.votes.pizza
-            },
-            {
-              color: '#00f',
-              value: this.state.votes.ramen
-            }
-          ]}
-        />
-        <div>
-          <h1>Burgers {this.state.votes.burgers}</h1>
-          <h1>Pizza {this.state.votes.pizza}</h1>
-          <h1>Ramen {this.state.votes.ramen}</h1>
+        <h1>Vote For Your Favourite Food</h1>
+        <div className="chartContainer">
+          <PieChart
+            slices={[
+              {
+                color: '#f00',
+                value: this.state.votes.burgers
+              },
+              {
+                color: '#0f0',
+                value: this.state.votes.pizza
+              },
+              {
+                color: '#00f',
+                value: this.state.votes.ramen
+              }
+            ]}
+          />
         </div>
         <div className="buttons">
           <Button onClick={this.handleVote} id="burgers" bsStyle="primary">Burgers</Button>
@@ -92,6 +90,10 @@ class App extends Component {
           <Button onClick={this.handleVote} id="ramen" bsStyle="info">Ramen</Button>
         </div>
         <Button onClick={this.handleReset} bsStyle="danger">Reset Votes</Button>
+        <h2>Total Votes</h2>
+        <h3>Burgers {this.state.votes.burgers}</h3>
+        <h3>Pizza {this.state.votes.pizza}</h3>
+        <h3>Ramen {this.state.votes.ramen}</h3>
       </div>     
     );
   }
