@@ -70,15 +70,15 @@ class App extends Component {
           <PieChart
             slices={[
               {
-                color: '#f00',
+                color: '#337ab7',
                 value: this.state.votes.burgers
               },
               {
-                color: '#0f0',
+                color: '#5bb85b',
                 value: this.state.votes.pizza
               },
               {
-                color: '#00f',
+                color: '#f0ad4e',
                 value: this.state.votes.ramen
               }
             ]}
@@ -87,7 +87,7 @@ class App extends Component {
         <div className="buttons">
           <Button onClick={this.handleVote} id="burgers" bsStyle="primary">Burgers</Button>
           <Button onClick={this.handleVote} id="pizza" bsStyle="success">Pizza</Button>
-          <Button onClick={this.handleVote} id="ramen" bsStyle="info">Ramen</Button>
+          <Button onClick={this.handleVote} id="ramen" bsStyle="warning">Ramen</Button>
         </div>
         <Button onClick={this.handleReset} bsStyle="danger">Reset Votes</Button>
         <h2>Total Votes</h2>
