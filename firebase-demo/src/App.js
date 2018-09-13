@@ -6,10 +6,29 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      username: ''
+      username: '',
+      items: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const itemsRef = firebase.database().ref('items');
+    itemsRef.on('value', (snapshot) => {
+      const items = snapshot.val();
+      const newState = [];
+      for (const item in items) {
+        newState.push({
+          id: item,
+          title: items[item].title,
+          user: items[item].user
+        });
+      }
+      this.setState({
+        items: newState
+      });
+    });
   }
 
   handleChange(e) {
@@ -38,7 +57,13 @@ class App extends Component {
           <button>Add your name</button>
         </form>
         <ul>
-
+          {this.state.items.map((item) => {
+            return (
+              <li key={item.id}>
+                <h3>{item.user}</h3>
+              </li>
+            );
+          })}
         </ul>
       </div>     
     );
