@@ -6,8 +6,10 @@
     "firebase": "^5.4.2",
     "react": "^16.5.0",
     "react-bootstrap": "^0.32.4",
+    "react-d3-basic": "^1.6.11",
     "react-dom": "^16.5.0",
-    "react-scripts": "1.1.5"
+    "react-scripts": "1.1.5",
+    "react-simple-pie-chart": "^0.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
