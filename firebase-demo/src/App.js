@@ -9,12 +9,11 @@ class App extends Component {
     super();
     this.state = {
       votes: {
-        votesForOne: 0,
-        votesForTwo: 0,
-        votesForThree: 0
+        burgers: 0,
+        pizza: 0,
+        ramen: 0
       }
     };
-
     this.handleVote = this.handleVote.bind(this);
   }
 
@@ -24,9 +23,9 @@ class App extends Component {
       const votes = snapshot.val();
       this.setState({
         votes: {
-          votesForOne: votes.forOne.value,
-          votesForTwo: votes.forTwo.value,
-          votesForThree: votes.forThree.value
+          burgers: votes.burgers.numberOfVotes,
+          pizza: votes.pizza.numberOfVotes,
+          ramen: votes.ramen.numberOfVotes
         }
       });
     });
@@ -36,60 +35,61 @@ class App extends Component {
     const voteFor = e.target.id;
     const votesRef = firebase.database().ref('votes');
     let newTotal;
-    if (voteFor === 'forOne') {
-      newTotal = this.state.votes.votesForOne + 1;
-    } else if (voteFor === 'forTwo') {
-      newTotal = this.state.votes.votesForTwo + 1;
+    if (voteFor === 'burgers') {
+      newTotal = this.state.votes.burgers + 1;
+    } else if (voteFor === 'pizza') {
+      newTotal = this.state.votes.pizza + 1;
     } else {
-      newTotal = this.state.votes.votesForThree + 1;
+      newTotal = this.state.votes.ramen + 1;
     }
 
-    votesRef.child(voteFor).set({ value: newTotal });
+    votesRef.child(voteFor).set({ numberOfVotes: newTotal });
   }
 
   handleReset() {
     const votesRef = firebase.database().ref('votes');
     votesRef.set({
-      forOne: {
-        value: 0
+      burgers: {
+        numberOfVotes: 0
       },
-      forTwo: {
-        value: 0
+      pizza: {
+        numberOfVotes: 0
       },
-      forThree: {
-        value: 0
+      ramen: {
+        numberOfVotes: 0
       }
     });
   }
 
   render() {
+
     return (
       <div className="App">
         <PieChart 
           slices={[
             {
               color: '#f00',
-              value: this.state.votes.votesForOne
+              value: this.state.votes.burgers
             },
             {
               color: '#0f0',
-              value: this.state.votes.votesForTwo
+              value: this.state.votes.pizza
             },
             {
               color: '#00f',
-              value: this.state.votes.votesForThree
+              value: this.state.votes.ramen
             }
           ]}
         />
         <div>
-          <h1>Number of votes for 1 {this.state.votes.votesForOne}</h1>
-          <h1>Number of votes for 2 {this.state.votes.votesForTwo}</h1>
-          <h1>Number of votes for 3 {this.state.votes.votesForThree}</h1>
+          <h1>Burgers {this.state.votes.burgers}</h1>
+          <h1>Pizza {this.state.votes.pizza}</h1>
+          <h1>Ramen {this.state.votes.ramen}</h1>
         </div>
         <div className="buttons">
-          <Button onClick={this.handleVote} id="forOne" bsStyle="primary">Vote for 1</Button>
-          <Button onClick={this.handleVote} id="forTwo" bsStyle="success">Vote for 2</Button>
-          <Button onClick={this.handleVote} id="forThree" bsStyle="info">Vote for 3</Button>
+          <Button onClick={this.handleVote} id="burgers" bsStyle="primary">Burgers</Button>
+          <Button onClick={this.handleVote} id="pizza" bsStyle="success">Pizza</Button>
+          <Button onClick={this.handleVote} id="ramen" bsStyle="info">Ramen</Button>
         </div>
         <Button onClick={this.handleReset} bsStyle="danger">Reset Votes</Button>
       </div>     
