@@ -51,7 +51,8 @@ class App extends Component {
     } else {
       newTotal = this.state.votes.ramen + 1;
     }
-    // here we use .child() with the same name as the item we are voting for and .set() to replace the number of votes with our new total
+    // here we use .child() with the same name as the item we are voting 
+    //for and .set() to replace the number of votes with our new total
     votesRef.child(voteFor).set({ numberOfVotes: newTotal });
   }
 
